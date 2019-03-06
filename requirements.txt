@@ -1,0 +1,7 @@
+requests
+selenium
+Appium-Python-Client
+pytest
+pytest-html
+pytest-rerunfailures
+Faker
