@@ -42,10 +42,11 @@ selenium：浏览器自动测试工具，安装 Python3后在终端输入 ``pip3
 #### 6.	chromedriver（web 端测试 Chrome 浏览器必须）: 
 1.	下载 https://sites.google.com/a/chromium.org/chromedriver/downloads
 2. 将解压的 chromedriver 移动到/usr/local/bin目录下
-#### 7.  Appium环境（Android、iOS 端测试必须）：
+#### 7. Appium环境（Android、iOS 端测试必须）：
 	内容比较多，Android 和 iOS 不同，具体请查看 Appium 官方文档安装：
 	http://appium.io/docs/en/about-appium/getting-started/
-	
+#### 8. 在 MBT 目录下执行 pip3 install -r requirements.txt 安装所需 python 库
+
 ## 使用
 #### Web 端：
 1.	修改test_main.py 中的内容，调整一些测试参数和选择要测试的内容等（不需要执行的测试取消 @pytest.mark.skip("nothing") 的注释即可）
