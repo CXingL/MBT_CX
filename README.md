@@ -4,6 +4,28 @@ MBT (Model-based testing) 基于模型测试
 ## 概念：
 属于一种测试方法：利用模型自动产生测试用例/测试套件，然后执行测试。
 
+#### 以百度搜索为例：
+
+1. 制作模型图（建模方法请查看 graphwalker 建模规则 http://graphwalker.github.io/yed_model_syntax/ ），然后将模型图文件放入 model 文件夹下：
+
+![](https://github.com/CXingL/MBT_CX/blob/master/image/baidu_example.png)
+
+2. 在 MBT 目录下执行 ``python3 run_model.py -t model/example.graphml`` 检查模型图是否正确，确认没有报错或者死循环；
+然后执行 ``python3 run_model.py -f model/example.graphml``，会在 page_script 目录下生成一个 example_web.py（模型图文件名_测试平台.py）的文件
+
+3. 打开上一步生成的 py 文件，按 selenium 规则完成脚本：
+
+![](https://github.com/CXingL/MBT_CX/blob/master/image/script_example.png)
+
+4. 脚本完成后，在 MBT 目录下执行 ``pytest`` 开始测试，测试效果：
+
+![](https://github.com/CXingL/MBT_CX/blob/master/image/example.gif)
+
+*执行测试前可以先打开 test_main.py 文件进行一些简单的设置，例如设置运行浏览器、测试的执行速度、测试文件较多时，可以在 test_main 中选择跳过一些测试等*
+
+5. 测试完成后，在 report 目录下会生成测试报告，打开 report.html 即可查看本次测试结果。
+
+
 ## 运行环境：
 #### 1.	yEd 下载（非必须）：
 查看和编辑模型图的软件，模型图文件全部在 model 文件夹下，后缀为 .graphml 的文件
