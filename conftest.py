@@ -78,7 +78,8 @@ def android():
     Android Appium
     """
     # 测试的包的路径和包名
-    appLocation = options["appLocation"]
+    path = os.path.abspath('')
+    appLocation = "{}/application/{}".format(path, options["app"])
     # 读取设备系统版本号，多个设备时默认选择第一个设备
     devices = subprocess.getoutput('adb devices')
     devices_list = re.findall(re.compile("\n(.+?)\t"), devices)
