@@ -25,6 +25,7 @@ def run_model():
         else:
             a = input("请输入脚本生成类型( Web: 1, Android: 2, Ios: 3) :")
     A = ["web", "android", "ios"]
+    B = ["Web", "Android", "Ios"]
 
     # 根据输入生成不同的脚本名称
     file_name = re.search(r'/(.*?)\.', file).group(1)
@@ -54,9 +55,9 @@ def run_model():
 
     with open('page_script/model.log', "w", encoding="utf-8") as f_w:
         # 默认文件头，import，class，init 等
-        cla = 'import helper\nimport random\nfrom time import sleep\n\n\nclass Action(helper.' + A[int(a) - 1] + '):' \
+        cla = 'import helper\nimport random\nfrom time import sleep\n\n\nclass Action(helper.' + B[int(a) - 1] + '):' \
                                                             '\n    def __init__(self, driver):\n        helper.' + \
-              A[int(a) - 1] + '.__init__(self, driver)\n\n'
+              B[int(a) - 1] + '.__init__(self, driver)\n\n'
 
         f_w.write(cla)
         # 将 e_ 类归纳为函数

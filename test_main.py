@@ -16,33 +16,32 @@ class TestClass:
         "page_wait": 10,  # 页面加载最大等待时间，单位s
         # "script": "page_script",
         "device": 1,  # [1: Web, 2: Android, 3: iOS] 影响失败截图
-        "speed": 0,  # 每个动作的间隔时间, 单位 s
+        "speed": 1,  # 每个动作的间隔时间, 单位 s
 
         # Web 设置
-        "browser": 5,  # [1: Chrome, 2: Safari, 3: Firefox, 4: IE11, 5: browserstack]
+        "browser": 1,  # [1: Chrome, 2: Safari, 3: Firefox, 4: IE11, 5: browserstack]
         "has_images": 1,  # 页面是否要加载图片, 1 为加载, 2 为不加载
 
         # Android 设置
-        "appLocation": "{}/application/app-debug13.apk".format(path),
+        "appLocation": "example.apk",
 
         # ios 设置
         "bundleId": "com.Monstarbukka.cn",
         "platformVersion": "10.1",
     }
-
-    # 可以传参，依次执行
-    @pytest.fixture(params=["NO", "PT", "SE"])
-    def eu_country(self, request):
-        return request.param
+    # # 可以传参，依次执行
+    # @pytest.fixture(params=["NO", "PT", "SE"])
+    # def eu_country(self, request):
+    #     return request.param
+    #
+    # # @pytest.mark.skip("nothing")
+    # def test_Example_EU(self, android, eu_country):
+    #     self.options['file'] = 'Example_EU'
+    #     self.options['device'] = 2
+    #     MBT_base.runs(self.options, android, e_EUselectCountry=eu_country)
 
     # @pytest.mark.skip("nothing")
-    def test_Example(self, android):
-        self.options['file'] = "Example"
-        self.options['device'] = 2
-        MBT_base.runs(self.options, android)
-
-    # @pytest.mark.skip("nothing")
-    def test_Example_EU(self, android, eu_country):
-        self.options['file'] = 'Example_EU'
-        self.options['device'] = 2
-        MBT_base.runs(self.options, android, e_EUselectCountry=eu_country)
+    def test_example(self, web):
+        self.options['file'] = 'example'
+        self.options['device'] = 1
+        MBT_base.runs(self.options, web)
