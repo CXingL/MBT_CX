@@ -1,7 +1,9 @@
 # MBT_CX
 MBT (Model-based testing) 基于模型测试
+
 ## 概念：
 属于一种测试方法：利用模型自动产生测试用例/测试套件，然后执行测试。
+
 ## 运行环境：
 #### 1.	yEd 下载（非必须）：
 查看和编辑模型图的软件，模型图文件全部在 model 文件夹下，后缀为 .graphml 的文件
@@ -21,6 +23,7 @@ selenium：浏览器自动测试工具，安装 Python3后在终端输入 ``pip3
 #### 7.  Appium环境（Android、iOS 端测试必须）：
 	内容比较多，Android 和 iOS 不同，具体请查看 Appium 官方文档安装：
 	http://appium.io/docs/en/about-appium/getting-started/
+	
 ## 使用
 #### Web 端：
 1.	修改test_main.py 中的内容，调整一些测试参数和选择要测试的内容等（不需要执行的测试取消 @pytest.mark.skip("nothing") 的注释即可）
@@ -34,9 +37,11 @@ Android 将测试 apk 放入 application 文件夹下，并将 test_main.py 中�
 4.	在MBT文件夹下执行：pytest 开始测试
 5.	测试完成后在 report 文件夹下会生成本次的测试报告
 #### 其它
-1.	iOS 使用中失败报错如果类似：
+1.	iOS 使用中如果出现报错类似：
+
 E       selenium.common.exceptions.WebDriverException: Message: An unknown server-side error occurred while processing the command. Original error: Error Domain=com.facebook.WebDriverAgent Code=1 "The element '"Cancel" Button' is not visible on the screen and thus is not interactable" UserInfo={NSLocalizedDescription=The element '"Cancel" Button' is not visible on the screen and thus is not interactable}
-解决办法：尝试升级 Appium 或者 iOS 版本，具体见：
+
+应该是 appium 的 bug，解决办法：尝试升级 Appium 或者 iOS 版本，具体见：
 https://github.com/facebook/WebDriverAgent/issues/914
 
 2.	@pytest.mark.skip("nothing") 会跳过该测试，测试中注释掉即可
