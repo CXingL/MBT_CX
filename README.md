@@ -53,7 +53,7 @@ selenium：浏览器自动测试工具，安装 Python3后在终端输入 ``pip3
 2.	在MBT文件夹下执行：pytest 开始测试
 3.	测试完成后在 report 文件夹下会生成本次的测试报告
 #### Android、iOS 端：
-1.	连接 Android、iOS 设备或模拟器，Android 准备好 REVINYL 测试 apk，iOS 安装好REVINYL
+1.	连接 Android、iOS 设备或模拟器，Android 准备好测试 apk 放入 application 文件夹，iOS 安装好测试软件
 2.	启动 Appium 服务
 3.	修改 test_main.py 中的内容，调整一些测试参数和选择要测试的内容（
 Android 将测试 apk 放入 application 文件夹下，并将 test_main.py 中的 app 修改为 apk 的名字）
