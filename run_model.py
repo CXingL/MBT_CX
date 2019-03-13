@@ -57,37 +57,51 @@ def run_model():
         # 默认文件头，import，class，init 等
         cla = 'import helper\nimport random\nfrom time import sleep\n\n\nclass Action(helper.' + B[int(a) - 1] + '):' \
                                                             '\n    def __init__(self, driver):\n        helper.' + \
-              B[int(a) - 1] + '.__init__(self, driver)\n\n'
-
+              B[int(a) - 1] + '.__init__(self, driver)\n'
         f_w.write(cla)
-        # 将 e_ 类归纳为函数
+
+        # 将 e_ 对应函数
+        find_way = {"web": "find_element_by_xpath('')",
+                    "android": "find_element_by_id('')",
+                    "ios": "find_element_by_ios_predicate('')"}
+
+        # 生成测试脚本的装饰器函数
+        def script_method(platform):
+            def method(fn):
+                def wrapper(name):
+                    if "input" in name.lower():
+                        if platform in ["web", "ios"]:
+                            return """
+    def {}(self):
+        self.driver.{find_way}.clear()
+        self.driver.{find_way}.send_keys('')\n""".format(fn(name), find_way=find_way[platform])
+                        else:
+                            return """
+    def {}(self):
+        self.driver.{find_way}.send_keys('')\n""".format(fn(name), find_way=find_way[platform])
+                    elif "alert" in name.lower():
+                        return """
+    def {}(self):
+        sleep(0.5)
+        self.driver.switch_to_alert().accept()
+        self.driver.switch_to_alert().dismiss()\n""".format(fn(name))
+                    else:
+                        return """
+    def {}(self):
+        self.driver.{find_way}.click()\n""".format(fn(name), find_way=find_way[platform])
+                return wrapper
+            return method
+
+        # 生成测试脚本的方法，name 应该是 e_ 动作
+        @script_method(platform=A[int(a)-1])
+        def create(name):
+            return name
+
+        # 逐行读取，对 e_ 生成并写入到测试脚本中
         for line in lines:
             if line[:2] == "e_":
-                line = line.replace('e_', '    def e_')
-                if "input" in line.lower():
-                    if a == "1":
-                        line = line.replace('\n', "(self):\n        self.driver.find_element_by_xpath('').clear()"
-                                                  "\n        self.driver.find_element_by_xpath('').send_keys()\n\n")
-                    elif a == "3":
-                        line = line.replace('\n', "(self):\n        "
-                                                  "self.driver.find_element_by_ios_predicate('').send_keys()\n\n")
-                    else:
-                        line = line.replace('\n', "(self):\n        self.driver.find_element_by_id('').send_keys()\n\n")
-                elif "labelok" in line.lower():
-                    line = line.replace('\n', "(self):\n        sleep(0.5)\n        self.driver.switch_to_alert()."
-                                              "accept()\n\n")
-                elif "labelcancel" in line.lower():
-                    line = line.replace('\n', "(self):\n        sleep(0.5)\n        self.driver.switch_to_alert()."
-                                              "dismiss()\n\n")
-                else:
-                    if a == "1":
-                        line = line.replace('\n', "(self):\n        self.driver.find_element_by_xpath('').click()\n\n")
-                    elif a == "3":
-                        line = line.replace('\n', "(self):\n        "
-                                                  "self.driver.find_element_by_ios_predicate('').click()\n\n")
-                    else:
-                        line = line.replace('\n', "(self):\n        self.driver.find_element_by_id('').click()\n\n")
-                f_w.write(line)
+                result = create(line.replace("\n", ""))
+                f_w.write(result)
             else:
                 continue
 
