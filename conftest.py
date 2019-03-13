@@ -40,7 +40,7 @@ def web():
             'resolution': '1024x768'
         }
         wd = sw.Remote(
-            command_executor='http://monstarlab1:qDypWv9guhHUHNDjAWqY@hub.browserstack.com:80/wd/hub',
+            command_executor='',
             desired_capabilities=desired_cap)
     else:
         # 其他浏览器
